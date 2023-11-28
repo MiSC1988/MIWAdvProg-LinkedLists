@@ -80,7 +80,6 @@ public class DoublyLinkedList {
             current.next.prev = n;
         }
         current.next = n;
-
     }
 
     /**
@@ -96,7 +95,9 @@ public class DoublyLinkedList {
 
         if (index == 0) {
             head = head.next;
-            head.prev = null;
+            if (head != null) {
+                head.prev = null;
+            }
             return;
         }
 
