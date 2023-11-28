@@ -35,7 +35,15 @@ public class DoublyLinkedList {
      * @return
      */
     public int get( int index ) {
-        return -1;
+        if (index < 0 || index > size) {
+            return 0;
+
+        }
+        Node current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        return current.value;
     }
 
     /**
@@ -45,11 +53,33 @@ public class DoublyLinkedList {
      * @param value
      */
     public void add( int index, int value ) {
+        if (index < 0 || index > size) {
+            return;
+        }
         // Implement, create a new Node for this entry.
+        Node n = new Node(value);
+        size++;
 
-        Node n = new Node( value );
+        if (index == 0) {
+            if (head != null) {
+                head.prev = n;
+            }
+            n.next = head;
+            head = n;
+            return;
+        }
 
-        // Implement the rest
+        Node current = head;
+        for (int i = 1; i < index; i++) {
+            current = current.next;
+        }
+        n.next = current.next;
+        n.prev = current;
+
+        if (current.next != null) {
+            current.next.prev = n;
+        }
+        current.next = n;
 
     }
 
@@ -59,7 +89,26 @@ public class DoublyLinkedList {
      * @param index
      */
     public void remove( int index ) {
-        // Implement, remove the corresponding node from the linked list.
+        if (index < 0 || index > size) {
+            return;
+        }
+        size--;
+
+        if (index == 0) {
+            head = head.next;
+            head.prev = null;
+            return;
+        }
+
+        Node current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+
+        if (current.next != null) {
+            current.next.prev = current.prev;
+        }
+        current.prev.next = current.next;
     }
 
 
