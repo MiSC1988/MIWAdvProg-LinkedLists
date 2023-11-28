@@ -9,8 +9,7 @@ public class SinglyLinkedList {
 
     private class Node {
         int value;
-
-        Node next=null;      // Link to next node
+        Node next = null;      // Link to next node
 
         public Node(int value) {
             this.value = value;
@@ -29,12 +28,15 @@ public class SinglyLinkedList {
 
     /**
      * Return the value in the list at position index.
-     *
      * @param index
      * @return
      */
     public int get( int index ) {
-        return -1;
+        Node current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        return current.value;
     }
 
     /**
@@ -43,21 +45,52 @@ public class SinglyLinkedList {
      * @param index
      * @param value
      */
-    public void add( int index, int value ) {
+    public void add(int index, int value) {
+        if (index < 0 || index > size) {
+            return;
+        }
         // Implement, create a new Node for this entry.
+        Node n = new Node(value);
+        size++;
 
-        Node n = new Node( value );
+        if (index == 0) {
+            n.next = head;
+            head = n;
+            return;
+        }
 
-        // Implement the rest
+        Node current = head;
+        for (int i = 1; i < index; i++) {
+            current = current.next;
+        }
+        n.next = current.next;
+        current.next = n;
+
     }
 
     /**
-     * Remove an elmeent from the list at position index, if it exists.
+     * Remove an element from the list at position index, if it exists.
      *
      * @param index
      */
     public void remove( int index ) {
         // Implement, remove the corresponding node from the linked list.
+        if (index < 0 || index > size) {
+            return;
+        }
+        size--;
+
+        if (index == 0) {
+            head = head.next;
+            return;
+        }
+
+        Node current = head;
+        for (int i = 1; i < index; i++) {
+            current = current.next;
+        }
+
+        current.next = current.next.next;
     }
 
 
